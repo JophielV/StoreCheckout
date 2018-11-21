@@ -1,4 +1,4 @@
-package com.storecheckout.model.transaction;
+package com.storecheckout.domain.model.transaction;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,6 +12,7 @@ public class OrderItem {
     private BigDecimal priceSubtotal;
     private BigDecimal overallDiscount;
     private List<ItemDiscount> itemDiscounts;
+    private BigDecimal netTotal;
 
     public String getOrderItemId() {
         return orderItemId;
@@ -67,5 +68,13 @@ public class OrderItem {
 
     public void setItemDiscounts(List<ItemDiscount> itemDiscounts) {
         this.itemDiscounts = itemDiscounts;
+    }
+
+    public BigDecimal getNetTotal() {
+        return netTotal;
+    }
+
+    public void setNetTotal(BigDecimal netTotal) {
+        this.netTotal = netTotal;
     }
 }

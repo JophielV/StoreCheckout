@@ -1,4 +1,4 @@
-package com.storecheckout.model.product;
+package com.storecheckout.domain.model.product;
 
 import java.math.BigDecimal;
 
@@ -7,9 +7,17 @@ public class Product {
     private String productId;
     private String productName;
     private BigDecimal price;
-    private String barcode;
     private Boolean isWeighted;
     private String unitOfMeasurement;
+
+    public Product(String productId, String productName, BigDecimal price,
+                   Boolean isWeighted, String unitOfMeasurement) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.isWeighted = isWeighted;
+        this.unitOfMeasurement = unitOfMeasurement;
+    }
 
     public String getProductId() {
         return productId;
@@ -33,14 +41,6 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
     }
 
     public Boolean getWeighted() {

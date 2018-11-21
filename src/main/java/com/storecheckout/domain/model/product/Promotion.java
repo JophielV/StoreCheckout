@@ -1,4 +1,4 @@
-package com.storecheckout.model.product;
+package com.storecheckout.domain.model.product;
 
 public class Promotion {
 

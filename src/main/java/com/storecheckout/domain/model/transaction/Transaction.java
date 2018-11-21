@@ -1,8 +1,9 @@
-package com.storecheckout.model.transaction;
+package com.storecheckout.domain.model.transaction;
 
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Transaction {
@@ -10,9 +11,9 @@ public class Transaction {
     private String transactionId;
     private String orNumber;
     private DateTime transactionDate;
+    private BigDecimal subTotal;
     private BigDecimal totalAmountTender;
-    private String cashierName;
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
     private List<TransactionDiscount> transactionDiscounts;
 
     public String getTransactionId() {
@@ -39,20 +40,20 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
+    public BigDecimal getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+    }
+
     public BigDecimal getTotalAmountTender() {
         return totalAmountTender;
     }
 
     public void setTotalAmountTender(BigDecimal totalAmountTender) {
         this.totalAmountTender = totalAmountTender;
-    }
-
-    public String getCashierName() {
-        return cashierName;
-    }
-
-    public void setCashierName(String cashierName) {
-        this.cashierName = cashierName;
     }
 
     public List<OrderItem> getOrderItems() {

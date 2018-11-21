@@ -1,4 +1,4 @@
-package com.storecheckout.model.transaction;
+package com.storecheckout.domain.model.transaction;
 
 import java.math.BigDecimal;
 
