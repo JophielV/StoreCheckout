@@ -24,25 +24,12 @@ public class PromotionServiceImpl implements PromotionService {
     public List<Promotion> getProductPromotions(Product product) {
         List<Promotion> productPromotions = new ArrayList<>();
 
-        /*List<Promotion> byProductCondition = promotions.stream().
-                filter(p -> !p.getPromoType().equals(PromoType.SALE_PROMO.name()) &&
-                        p.getProductCondition() != null &&
-                        p.getProductCondition().getProductId().equals(product.getProductId()))
-                .collect(Collectors.toList());
-        productPromotions.addAll(byProductCondition);*/
 
         List<Promotion> byProductAction = promotions.stream().
-                filter(p -> !p.getPromoType().equals(PromoType.SALE_PROMO.name()) &&
-                        p.getProductAction() != null &&
+                filter(p -> p.getProductAction() != null &&
                         p.getProductAction().getProductId().equals(product.getProductId()))
                 .collect(Collectors.toList());
         productPromotions.addAll(byProductAction);
-
-        /*List<Promotion> productSale = promotions.stream().
-                filter(p -> p.getPromoType().equals(PromoType.SALE_PROMO.name()) &&
-                        p.getSaleProducts().stream().anyMatch(q -> q.getProductId().equals(product.getProductId())))
-                .collect(Collectors.toList());
-        productPromotions.addAll(productSale);*/
 
         return productPromotions;
     }
@@ -52,51 +39,64 @@ public class PromotionServiceImpl implements PromotionService {
         List<ItemDiscount> itemDiscounts = new ArrayList<>();
         BigDecimal totalDiscounts = BigDecimal.ZERO;
 
-        for (Promotion promotion: promotions) {
+        for (Promotion promotion : promotions) {
             Integer conditionQuantity = promotion.getConditionQuantity();
 
-            List<OrderItem> orderItemsForChecking = transaction.getOrderItems().stream()
+            List<OrderItem> orderItemsForChecking = new ArrayList<>();
+
+            orderItemsForChecking = transaction.getOrderItems().stream()
                     .filter(oI -> oI.getProductId().equals(promotion.getProductCondition().getProductId())
-                            && !oI.getPromoCheckingDone()
                             && oI.getRemainingQty() > 0)
                     .collect(Collectors.toList());
 
+
             if (orderItemsForChecking.size() > 0) {
-                Integer itemQuantity = orderItemsForChecking.stream()
-                        .mapToInt(OrderItem::getRemainingQty)
-                        .sum();
+                System.out.println("orderItemsForChecking Size: " + orderItemsForChecking.size());
 
-                if (itemQuantity.intValue() == conditionQuantity) {
-                    orderItemsForChecking.stream().forEach(orderItemForChecking -> {
-                        Boolean isPromoCheckingDone = orderItem.getRemainingQty() - conditionQuantity == 0;
-                        transaction.getOrderItems().stream()
-                                .filter(o -> o.getOrderItemId().equals(orderItemForChecking.getOrderItemId()))
-                                .findFirst()
-                                .get().setPromoFieldsToCheck(isPromoCheckingDone, conditionQuantity);
-                    });
+                Integer quantityAccum = 0;
+                Integer quantityToReach = promotion.getConditionQuantity();
 
-                    ItemDiscount itemDiscount;
-                    BigDecimal discountValue = promotion.getDiscountValue();
-                    BigDecimal priceForDiscount = orderItem.getPrice().multiply(new BigDecimal(promotion.getConditionQuantity()));
-                    String discountType = promotion.getDiscountType();
-                    if (discountType.equals(DiscountType.PERCENT.name())) {
-                        discountValue = (discountValue.divide(new BigDecimal("100"))).multiply(priceForDiscount);
-                        itemDiscount = new ItemDiscount(promotion.getDiscountValue() + "% PROMO DISCOUNT - " + promotion.getConditionQuantity() + " item", discountValue);
-                    } else {
-                        itemDiscount = new ItemDiscount(discountValue + "AMT PROMO DISCOUNT", discountValue);
+                BigDecimal quantityToMultiply = orderItem.getQuantity().intValue() != promotion.getActionQuantity() ? new BigDecimal(promotion.getActionQuantity()) : orderItem.getQuantity();
+                boolean promoCountReached = false;
+                for (OrderItem orderItemForChecking : orderItemsForChecking) {
+                    quantityAccum += orderItemForChecking.getRemainingQty();
+                    if (quantityAccum > quantityToReach) {
+                        quantityAccum = quantityToReach;
+                        promoCountReached = true;
+                    } else if (quantityAccum == quantityToReach) {
+                        promoCountReached = true;
                     }
 
-                    totalDiscounts = totalDiscounts.add(discountValue);
-                    itemDiscounts.add(itemDiscount);
+                    transaction.getOrderItems().stream()
+                            .filter(o -> o.getOrderItemId().equals(orderItemForChecking.getOrderItemId()))
+                            .findFirst()
+                            .get().setPromoFieldsToCheck(promoCountReached, quantityAccum);
 
-                    orderItem.setPromoFieldsToCheck(true, conditionQuantity);
-                    orderItem.setNetTotal(orderItem.getPriceSubtotal().subtract(discountValue));
+                    if (promoCountReached) break;
                 }
+
+                ItemDiscount itemDiscount;
+                BigDecimal discountValue = promotion.getDiscountValue();
+                BigDecimal actionQuantity = orderItem.getRemainingQty() == promotion.getActionQuantity() ? new BigDecimal(promotion.getActionQuantity()) : new BigDecimal(quantityAccum);
+                BigDecimal priceForDiscount = orderItem.getPrice().multiply(actionQuantity);
+                String discountType = promotion.getDiscountType();
+                if (discountType.equals(DiscountType.PERCENT.name())) {
+                    discountValue = (discountValue.divide(new BigDecimal("100"))).multiply(priceForDiscount);
+                    itemDiscount = new ItemDiscount(promotion.getDiscountValue() + "% PROMO DISCOUNT - " + actionQuantity + " item", discountValue);
+                } else {
+                    itemDiscount = new ItemDiscount(discountValue + "AMT PROMO DISCOUNT", discountValue);
+                }
+
+                totalDiscounts = totalDiscounts.add(discountValue);
+                itemDiscounts.add(itemDiscount);
+
+                orderItem.setPromoFieldsToCheck(orderItem.getRemainingQty() - conditionQuantity == 0, quantityAccum > orderItem.getRemainingQty() ? orderItem.getRemainingQty() : quantityAccum);
+                orderItem.setNetTotal(orderItem.getPriceSubtotal().subtract(discountValue));
+                orderItem.setItemDiscounts(itemDiscounts);
+                orderItem.setOverallDiscount(totalDiscounts);
             }
 
 
-            orderItem.setItemDiscounts(itemDiscounts);
-            orderItem.setOverallDiscount(totalDiscounts);
             transaction.getOrderItems().add(orderItem);
         }
 

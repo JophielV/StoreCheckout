@@ -22,7 +22,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     public OrderItem processNewOrderItem(Transaction transaction, Product product, BigDecimal quantity) {
         OrderItem orderItem = new OrderItem();
-        orderItem.setOrderItemId(IdGenerator.generateId());
+        orderItem.setOrderItemId(String.valueOf(IdGenerator.generateIntId()));
         orderItem.setProductId(product.getProductId());
         orderItem.setProductName(product.getProductName());
         orderItem.setPrice(product.getPrice());

@@ -53,8 +53,9 @@ public class StoreCheckoutServiceImpl implements StoreCheckoutService {
 
         System.out.println("--- ProductID: " + product.getProductId());
         for (OrderItem orderItem1 : tx.getOrderItems()) {
-            System.out.println("-- product: " + orderItem1.getProductName()
-                    + ", isForchecking: " + orderItem1.getPromoCheckingDone()
+            System.out.println("-- orderItemId: " + orderItem1.getOrderItemId() +
+                    ", product: " + orderItem1.getProductName()
+                    + ", promoCheckingDone: " + orderItem1.getPromoCheckingDone()
                     + ", remainingQty: " + orderItem1.getRemainingQty());
         }
         System.out.println("------------------------------------------");

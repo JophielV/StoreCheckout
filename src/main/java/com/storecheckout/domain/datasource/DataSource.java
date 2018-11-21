@@ -38,38 +38,43 @@ public class DataSource {
                 new BigDecimal("90"), false, UnitOfMeasurement.EACH.name()));
         products.put("11", new Product("11", "Pasta",
                 new BigDecimal("112"), false, UnitOfMeasurement.EACH.name()));
+        products.put("12", new Product("12", "Chocolate",
+                new BigDecimal("50"), false, UnitOfMeasurement.EACH.name()));
+        products.put("13", new Product("13", "Notebook",
+                new BigDecimal("30"), false, UnitOfMeasurement.EACH.name()));
 
-        Promotion buyX_getX_safeguard = new Promotion();
-        buyX_getX_safeguard.setPromoId("1");
-        buyX_getX_safeguard.setPromoType(PromoType.BUYX_GETX.name());
-        buyX_getX_safeguard.setConditionQuantity(1); // if you buy 1 safeguard
-        buyX_getX_safeguard.setActionQuantity(1);  // you take 1 free safeguard
-        buyX_getX_safeguard.setDiscountType(DiscountType.PERCENT.name());
-        buyX_getX_safeguard.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
-        buyX_getX_safeguard.setProductCondition(products.get("1")); // product safeguard has buy 1 take 1 promo
-        buyX_getX_safeguard.setProductAction(products.get("1"));
-        promotions.add(buyX_getX_safeguard);
+        Promotion buy1_get1_safeguard = new Promotion();
+        buy1_get1_safeguard.setPromoId("1");
+        buy1_get1_safeguard.setPromoType(PromoType.BUYX_GETX.name());
+        buy1_get1_safeguard.setConditionQuantity(1); // if you buy 1 safeguard
+        buy1_get1_safeguard.setActionQuantity(1);  // you take 1 free safeguard
+        buy1_get1_safeguard.setDiscountType(DiscountType.PERCENT.name());
+        buy1_get1_safeguard.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
+        buy1_get1_safeguard.setProductCondition(products.get("1")); // product safeguard has buy 1 take 1 promo
+        buy1_get1_safeguard.setProductAction(products.get("1"));
+        promotions.add(buy1_get1_safeguard);
 
-        Promotion buyX_getY_paper_pencil = new Promotion();
-        buyX_getY_paper_pencil.setPromoId("2");
-        buyX_getY_paper_pencil.setPromoType(PromoType.BUYX_GETY.name());
-        buyX_getY_paper_pencil.setConditionQuantity(1); // if you buy 1 paper
-        buyX_getY_paper_pencil.setActionQuantity(2);  // you take 1 less 5(amount) discounted pencil
-        buyX_getY_paper_pencil.setDiscountType(DiscountType.AMOUNT.name());
-        buyX_getY_paper_pencil.setDiscountValue(new BigDecimal("10")); // set discount to 5 for productY = pencil
-        buyX_getY_paper_pencil.setProductCondition(products.get("6")); // product paper is the condition product
-        buyX_getY_paper_pencil.setProductAction(products.get("4")); // pencil is the action product
-        promotions.add(buyX_getY_paper_pencil);
+        Promotion buy1_get2_notebook = new Promotion();
+        buy1_get2_notebook.setPromoId("2");
+        buy1_get2_notebook.setPromoType(PromoType.BUYX_GETX.name());
+        buy1_get2_notebook.setConditionQuantity(1); // if you buy 1 notebook
+        buy1_get2_notebook.setActionQuantity(2);  // you take 2 free notebook
+        buy1_get2_notebook.setDiscountType(DiscountType.PERCENT.name());
+        buy1_get2_notebook.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
+        buy1_get2_notebook.setProductCondition(products.get("13")); // product safeguard has buy 1 take 1 promo
+        buy1_get2_notebook.setProductAction(products.get("13"));
+        promotions.add(buy1_get2_notebook);
 
-        Promotion sale_50_percent = new Promotion();
-        // air-con and lightbulb are 50% off
-        List<Product> saleProducts = new ArrayList<>();
-        saleProducts.add(products.get("8")); saleProducts.add(products.get("9"));
-        sale_50_percent.setPromoId("3");
-        sale_50_percent.setPromoType(PromoType.SALE_PROMO.name());
-        sale_50_percent.setDiscountType(DiscountType.PERCENT.name());
-        sale_50_percent.setDiscountValue(new BigDecimal("50")); // set discount to 5 for productY = pencil
-        sale_50_percent.setSaleProducts(saleProducts);
-        promotions.add(sale_50_percent);
+        Promotion buy1_chocolate_get2_pasta = new Promotion();
+        buy1_chocolate_get2_pasta.setPromoId("3");
+        buy1_chocolate_get2_pasta.setPromoType(PromoType.BUYX_GETY.name());
+        buy1_chocolate_get2_pasta.setConditionQuantity(1); // if you buy 1 chocolate
+        buy1_chocolate_get2_pasta.setActionQuantity(2);  // you take 2 free pasta
+        buy1_chocolate_get2_pasta.setDiscountType(DiscountType.PERCENT.name());
+        buy1_chocolate_get2_pasta.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
+        buy1_chocolate_get2_pasta.setProductCondition(products.get("12")); // product safeguard has buy 1 take 1 promo
+        buy1_chocolate_get2_pasta.setProductAction(products.get("11"));
+        promotions.add(buy1_chocolate_get2_pasta);
+
     }
 }
