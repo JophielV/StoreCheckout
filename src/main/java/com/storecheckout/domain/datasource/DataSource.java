@@ -42,6 +42,8 @@ public class DataSource {
                 new BigDecimal("50"), false, UnitOfMeasurement.EACH.name()));
         products.put("13", new Product("13", "Notebook",
                 new BigDecimal("30"), false, UnitOfMeasurement.EACH.name()));
+        products.put("14", new Product("14", "Magazine",
+                new BigDecimal("75"), false, UnitOfMeasurement.EACH.name()));
 
         Promotion buy1_get1_safeguard = new Promotion();
         buy1_get1_safeguard.setPromoId("1");
@@ -65,8 +67,19 @@ public class DataSource {
         buy1_get2_notebook.setProductAction(products.get("13"));
         promotions.add(buy1_get2_notebook);
 
+        Promotion buy2_get1_magazine = new Promotion();
+        buy2_get1_magazine.setPromoId("3");
+        buy2_get1_magazine.setPromoType(PromoType.BUYX_GETX.name());
+        buy2_get1_magazine.setConditionQuantity(2); // if you buy 2 magazine
+        buy2_get1_magazine.setActionQuantity(1);  // you take 1 free magazine
+        buy2_get1_magazine.setDiscountType(DiscountType.PERCENT.name());
+        buy2_get1_magazine.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
+        buy2_get1_magazine.setProductCondition(products.get("14")); // product safeguard has buy 1 take 1 promo
+        buy2_get1_magazine.setProductAction(products.get("14"));
+        promotions.add(buy2_get1_magazine);
+
         Promotion buy1_chocolate_get2_pasta = new Promotion();
-        buy1_chocolate_get2_pasta.setPromoId("3");
+        buy1_chocolate_get2_pasta.setPromoId("4");
         buy1_chocolate_get2_pasta.setPromoType(PromoType.BUYX_GETY.name());
         buy1_chocolate_get2_pasta.setConditionQuantity(1); // if you buy 1 chocolate
         buy1_chocolate_get2_pasta.setActionQuantity(2);  // you take 2 free pasta

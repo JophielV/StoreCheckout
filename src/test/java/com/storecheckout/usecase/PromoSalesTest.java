@@ -77,6 +77,27 @@ public class PromoSalesTest {
     }
 
     @Test
+    public void promoSalesBuyXGetXTest_3() {
+        _LOG.info("-- Promo Sales BuyXGetX Test Scenario --");
+        _LOG.info("-- Creating a new transaction for customer --");
+
+        Transaction transaction = storeCheckoutService.initializeTransaction();
+        assertNotNull(transaction);
+        assertNotNull(transaction.getTransactionId());
+
+        // assuming that we retrieved products from db with their barcodes(in this case we are considering hashmap)
+        // assuming that we retrieved promotions from db(in this case we are considering hashmap)
+        assertNotNull(products);
+        assertNotNull(promotions);
+
+        transaction = storeCheckoutService.scanItem(transaction, products.get("14"), new BigDecimal("2"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("14"), new BigDecimal("1"));
+
+        receiptService.printReceipt(transaction);
+    }
+
+    @Test
     public void promoSalesBuyXGetYTest() {
         _LOG.info("-- Promo Sales BuyXGetX Test Scenario --");
         _LOG.info("-- Creating a new transaction for customer --");
