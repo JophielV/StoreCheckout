@@ -5,10 +5,11 @@ import com.storecheckout.domain.model.product.Promotion;
 import com.storecheckout.domain.model.transaction.OrderItem;
 import com.storecheckout.domain.model.transaction.Transaction;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-public interface OrderItemService {
+public interface PromotionService {
 
-    OrderItem processNewOrderItem(Transaction transaction, Product product, BigDecimal quantity);
+    List<Promotion> getProductPromotions(Product product);
+
+    Transaction processPromotions(Transaction transaction, OrderItem orderItem, List<Promotion> promotions);
 }

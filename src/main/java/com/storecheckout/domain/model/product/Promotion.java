@@ -1,19 +1,25 @@
 package com.storecheckout.domain.model.product;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class Promotion {
 
     private String promoId;
     private String promoType;
-    private String conditionType;
 
-    private Integer conditionValue;
+    private Integer conditionQuantity;
     private Integer actionQuantity;
 
     private String discountType;
-    private String discountValue;
+    private BigDecimal discountValue;
 
+    // these 2 fields are for buyXgetX & buyXgetY condition
     private Product productCondition;
     private Product productAction;
+
+    // this field is for SALE promo condition;
+    private List<Product> saleProducts;
 
     public String getPromoId() {
         return promoId;
@@ -31,20 +37,12 @@ public class Promotion {
         this.promoType = promoType;
     }
 
-    public String getConditionType() {
-        return conditionType;
+    public Integer getConditionQuantity() {
+        return conditionQuantity;
     }
 
-    public void setConditionType(String conditionType) {
-        this.conditionType = conditionType;
-    }
-
-    public Integer getConditionValue() {
-        return conditionValue;
-    }
-
-    public void setConditionValue(Integer conditionValue) {
-        this.conditionValue = conditionValue;
+    public void setConditionQuantity(Integer conditionQuantity) {
+        this.conditionQuantity = conditionQuantity;
     }
 
     public Integer getActionQuantity() {
@@ -63,11 +61,11 @@ public class Promotion {
         this.discountType = discountType;
     }
 
-    public String getDiscountValue() {
+    public BigDecimal getDiscountValue() {
         return discountValue;
     }
 
-    public void setDiscountValue(String discountValue) {
+    public void setDiscountValue(BigDecimal discountValue) {
         this.discountValue = discountValue;
     }
 
@@ -85,5 +83,13 @@ public class Promotion {
 
     public void setProductAction(Product productAction) {
         this.productAction = productAction;
+    }
+
+    public List<Product> getSaleProducts() {
+        return saleProducts;
+    }
+
+    public void setSaleProducts(List<Product> saleProducts) {
+        this.saleProducts = saleProducts;
     }
 }

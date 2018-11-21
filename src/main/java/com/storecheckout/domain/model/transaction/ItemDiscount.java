@@ -4,15 +4,19 @@ import java.math.BigDecimal;
 
 public class ItemDiscount {
 
-    private String itemDiscountId;
+    private String label;
     private BigDecimal amount;
 
-    public String getItemDiscountId() {
-        return itemDiscountId;
+    public ItemDiscount(String label, BigDecimal amount) {
+
     }
 
-    public void setItemDiscountId(String itemDiscountId) {
-        this.itemDiscountId = itemDiscountId;
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public BigDecimal getAmount() {

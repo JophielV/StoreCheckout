@@ -11,9 +11,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction processTransaction(Transaction transaction, OrderItem orderItem) {
-        List<OrderItem> txOrderItems = transaction.getOrderItems();
-        txOrderItems.add(orderItem);
-        transaction.setOrderItems(txOrderItems);
+        //List<OrderItem> txOrderItems = transaction.getOrderItems();
+        //txOrderItems.add(orderItem);
+        //transaction.setOrderItems(txOrderItems);
+
+        // check if there is atleast one
 
         BigDecimal subTotal = BigDecimal.ZERO;
         BigDecimal totalAmountTender = BigDecimal.ZERO;

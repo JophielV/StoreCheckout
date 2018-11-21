@@ -27,7 +27,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<OrderItem> orderItems = transaction.getOrderItems();
         orderItems.forEach(o -> {
             System.out.println(String.format("%s",  o.getProductName()));
-            System.out.println(String.format("%-35s %s",  o.getPrice() + " * " + o.getQuantity(), o.getPriceSubtotal()));
+            System.out.println(String.format("%-35s %s",  o.getPrice() + " * " + o.getQuantity(), o.getNetTotal()));
         });
 
         System.out.println();
