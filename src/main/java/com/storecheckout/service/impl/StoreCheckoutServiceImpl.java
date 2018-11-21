@@ -50,9 +50,12 @@ public class StoreCheckoutServiceImpl implements StoreCheckoutService {
         // PromotionService.checkForPromotions
         Transaction transaction = transactionService.processTransaction(tx, orderItem);
 
+
         System.out.println("--- ProductID: " + product.getProductId());
         for (OrderItem orderItem1 : tx.getOrderItems()) {
-            System.out.println("-- product: " + orderItem1.getProductName()  + ", isForchecking: " + orderItem1.getPromoCheckingDone());
+            System.out.println("-- product: " + orderItem1.getProductName()
+                    + ", isForchecking: " + orderItem1.getPromoCheckingDone()
+                    + ", remainingQty: " + orderItem1.getRemainingQty());
         }
         System.out.println("------------------------------------------");
         return transaction;

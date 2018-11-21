@@ -25,7 +25,6 @@ public class PromoSalesTest {
     private final Logger _LOG = LoggerFactory.getLogger(this.getClass());
     private DataSource dataSource = new DataSource();
     private StoreCheckoutService storeCheckoutService = new StoreCheckoutServiceImpl();
-    private PromotionService promotionService = new PromotionServiceImpl();
     private ReceiptService receiptService = new ReceiptServiceImpl();
     private HashMap<String, Product> products = dataSource.products;
     private List<Promotion> promotions = dataSource.promotions;
@@ -49,6 +48,8 @@ public class PromoSalesTest {
         transaction = storeCheckoutService.scanItem(transaction, products.get("2"), new BigDecimal("1"));
         transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"));
         transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("2"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("11"), new BigDecimal("2"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"));
 
         receiptService.printReceipt(transaction);
     }

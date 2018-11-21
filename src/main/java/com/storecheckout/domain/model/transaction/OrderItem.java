@@ -14,6 +14,9 @@ public class OrderItem {
     private BigDecimal overallDiscount;
     private List<ItemDiscount> itemDiscounts;
     private BigDecimal netTotal;
+
+    // Fields for checking promo
+    private Integer remainingQty; // initially this is always equals to quantity
     private Boolean isActionProduct = false;
     private Boolean isPromoCheckingDone;
 
@@ -89,6 +92,14 @@ public class OrderItem {
         this.netTotal = netTotal;
     }
 
+    public Integer getRemainingQty() {
+        return remainingQty;
+    }
+
+    public void setRemainingQty(Integer remainingQty) {
+        this.remainingQty = remainingQty;
+    }
+
     public Boolean getActionProduct() {
         return isActionProduct;
     }
@@ -103,5 +114,14 @@ public class OrderItem {
 
     public void setPromoCheckingDone(Boolean promoCheckingDone) {
         isPromoCheckingDone = promoCheckingDone;
+    }
+
+    public void deductRemainingQty(Integer qtyToSubtract) {
+        this.remainingQty -= qtyToSubtract;
+    }
+
+    public void setPromoFieldsToCheck(Boolean isPromoCheckingDone, Integer qtyToSubtract) {
+        this.isPromoCheckingDone = isPromoCheckingDone;
+        this.remainingQty -= qtyToSubtract;
     }
 }

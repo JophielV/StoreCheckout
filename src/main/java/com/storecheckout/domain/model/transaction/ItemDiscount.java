@@ -8,7 +8,8 @@ public class ItemDiscount {
     private BigDecimal amount;
 
     public ItemDiscount(String label, BigDecimal amount) {
-
+        this.label = label;
+        this.amount = amount;
     }
 
     public String getLabel() {

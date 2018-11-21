@@ -27,6 +27,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         orderItem.setProductName(product.getProductName());
         orderItem.setPrice(product.getPrice());
         orderItem.setQuantity(quantity);
+        orderItem.setRemainingQty(quantity.intValue());
 
         BigDecimal subTotal = computePriceSubtotal(product.getPrice(), quantity);
         orderItem.setPriceSubtotal(subTotal);

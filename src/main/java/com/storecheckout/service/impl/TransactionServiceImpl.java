@@ -18,15 +18,17 @@ public class TransactionServiceImpl implements TransactionService {
         // check if there is atleast one
 
         BigDecimal subTotal = BigDecimal.ZERO;
+        BigDecimal totalItemDiscounts = BigDecimal.ZERO;
         BigDecimal totalAmountTender = BigDecimal.ZERO;
 
         for (OrderItem item: transaction.getOrderItems()) {
             subTotal = subTotal.add(item.getPriceSubtotal());
+            totalItemDiscounts = totalItemDiscounts.add(item.getOverallDiscount());
             totalAmountTender = totalAmountTender.add(item.getNetTotal());
         }
 
-
         transaction.setSubTotal(subTotal);
+        transaction.setTotalItemDiscounts(totalItemDiscounts);
         transaction.setTotalAmountTender(totalAmountTender);
 
         return transaction;

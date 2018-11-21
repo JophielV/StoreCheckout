@@ -50,28 +50,29 @@ public class PromotionServiceImpl implements PromotionService {
     @Override
     public Transaction processPromotions(Transaction transaction, OrderItem orderItem, List<Promotion> promotions) {
         List<ItemDiscount> itemDiscounts = new ArrayList<>();
+        BigDecimal totalDiscounts = BigDecimal.ZERO;
 
-        //System.out.println("----------------- PROCESSING PROMOTIONS -------------");
         for (Promotion promotion: promotions) {
-
-            List<OrderItem> modifiedOrderItems = new ArrayList<>();
             Integer conditionQuantity = promotion.getConditionQuantity();
 
             List<OrderItem> orderItemsForChecking = transaction.getOrderItems().stream()
                     .filter(oI -> oI.getProductId().equals(promotion.getProductCondition().getProductId())
-                            && !oI.getPromoCheckingDone())
+                            && !oI.getPromoCheckingDone()
+                            && oI.getRemainingQty() > 0)
                     .collect(Collectors.toList());
 
             if (orderItemsForChecking.size() > 0) {
-                BigDecimal itemQuantity = orderItemsForChecking.stream()
-                        .map(OrderItem::getQuantity)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+                Integer itemQuantity = orderItemsForChecking.stream()
+                        .mapToInt(OrderItem::getRemainingQty)
+                        .sum();
 
                 if (itemQuantity.intValue() == conditionQuantity) {
-                    //System.out.println("------------------- IF!!!");
                     orderItemsForChecking.stream().forEach(orderItemForChecking -> {
-                        transaction.getOrderItems().stream().filter(o -> o.getOrderItemId().equals(orderItemForChecking.getOrderItemId()))
-                                .findFirst().get().setPromoCheckingDone(true);
+                        Boolean isPromoCheckingDone = orderItem.getRemainingQty() - conditionQuantity == 0;
+                        transaction.getOrderItems().stream()
+                                .filter(o -> o.getOrderItemId().equals(orderItemForChecking.getOrderItemId()))
+                                .findFirst()
+                                .get().setPromoFieldsToCheck(isPromoCheckingDone, conditionQuantity);
                     });
 
                     ItemDiscount itemDiscount;
@@ -80,27 +81,23 @@ public class PromotionServiceImpl implements PromotionService {
                     String discountType = promotion.getDiscountType();
                     if (discountType.equals(DiscountType.PERCENT.name())) {
                         discountValue = (discountValue.divide(new BigDecimal("100"))).multiply(priceForDiscount);
-                        itemDiscount = new ItemDiscount(discountValue + "% DISCOUNT", discountValue);
+                        itemDiscount = new ItemDiscount(promotion.getDiscountValue() + "% PROMO DISCOUNT - " + promotion.getConditionQuantity() + " item", discountValue);
                     } else {
-                        itemDiscount = new ItemDiscount(discountValue + "AMT DISCOUNT", discountValue);
+                        itemDiscount = new ItemDiscount(discountValue + "AMT PROMO DISCOUNT", discountValue);
                     }
 
-                    //System.out.println("---------------------- DISC: " + orderItem.getPriceSubtotal().subtract(discountValue));
-
+                    totalDiscounts = totalDiscounts.add(discountValue);
                     itemDiscounts.add(itemDiscount);
-                    orderItem.setPromoCheckingDone(true);
-                    orderItem.setItemDiscounts(itemDiscounts);
+
+                    orderItem.setPromoFieldsToCheck(true, conditionQuantity);
                     orderItem.setNetTotal(orderItem.getPriceSubtotal().subtract(discountValue));
-
-
-                } else {
-
                 }
             }
 
+
+            orderItem.setItemDiscounts(itemDiscounts);
+            orderItem.setOverallDiscount(totalDiscounts);
             transaction.getOrderItems().add(orderItem);
-            //modifiedOrderItems.add(orderItem);
-            //transaction.setOrderItems(modifiedOrderItems);
         }
 
         return transaction;

@@ -27,13 +27,19 @@ public class ReceiptServiceImpl implements ReceiptService {
         List<OrderItem> orderItems = transaction.getOrderItems();
         orderItems.forEach(o -> {
             System.out.println(String.format("%s",  o.getProductName()));
-            System.out.println(String.format("%-35s %s",  o.getPrice() + " * " + o.getQuantity(), o.getNetTotal()));
+            System.out.println(String.format("%-35s %s",  o.getPrice() + " * " + o.getQuantity(), o.getPriceSubtotal()));
+
+            if (o.getItemDiscounts() != null) {
+                o.getItemDiscounts().forEach(itemDisc -> {
+                    System.out.println(String.format("%-34s %s",  itemDisc.getLabel(), itemDisc.getAmount().negate()));
+                });
+            }
+            System.out.println("--");
         });
 
         System.out.println();
         System.out.println(String.format("%-35s %s",  "Subtotal: ", transaction.getSubTotal()));
-        System.out.println(String.format("%-35s %s",  "Total Item Discounts: ", "0"));
-        System.out.println(String.format("%-35s %s",  "Total Transaction Discounts: ", "0"));
+        System.out.println(String.format("%-35s %s",  "Total Discounts: ", transaction.getTotalItemDiscounts()));
 
         System.out.println(String.format("%-35s %s",  "Total: ", transaction.getTotalAmountTender()));
         System.out.println("************************ END RECEIPT ***********************");

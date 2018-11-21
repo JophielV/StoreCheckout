@@ -13,8 +13,8 @@ public class Transaction {
     private DateTime transactionDate;
     private BigDecimal subTotal;
     private BigDecimal totalAmountTender;
+    private BigDecimal totalItemDiscounts;
     private List<OrderItem> orderItems = new ArrayList<>();
-    private List<TransactionDiscount> transactionDiscounts;
 
     public String getTransactionId() {
         return transactionId;
@@ -56,6 +56,14 @@ public class Transaction {
         this.totalAmountTender = totalAmountTender;
     }
 
+    public BigDecimal getTotalItemDiscounts() {
+        return totalItemDiscounts;
+    }
+
+    public void setTotalItemDiscounts(BigDecimal totalItemDiscounts) {
+        this.totalItemDiscounts = totalItemDiscounts;
+    }
+
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -64,11 +72,4 @@ public class Transaction {
         this.orderItems = orderItems;
     }
 
-    public List<TransactionDiscount> getTransactionDiscounts() {
-        return transactionDiscounts;
-    }
-
-    public void setTransactionDiscounts(List<TransactionDiscount> transactionDiscounts) {
-        this.transactionDiscounts = transactionDiscounts;
-    }
 }
