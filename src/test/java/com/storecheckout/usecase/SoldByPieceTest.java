@@ -8,8 +8,6 @@ import com.storecheckout.service.api.StoreCheckoutService;
 import com.storecheckout.service.impl.ReceiptServiceImpl;
 import com.storecheckout.service.impl.StoreCheckoutServiceImpl;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -18,11 +16,11 @@ import static junit.framework.Assert.assertNotNull;
 
 public class SoldByPieceTest {
 
-    private final Logger _LOG = LoggerFactory.getLogger(this.getClass());
     private DataSource dataSource = new DataSource();
+    private HashMap<String, Product> products = dataSource.products;
+
     private StoreCheckoutService storeCheckoutService = new StoreCheckoutServiceImpl();
     private ReceiptService receiptService = new ReceiptServiceImpl();
-    private HashMap<String, Product> products = dataSource.products;
 
     @Test
     public void firstScenario() {
