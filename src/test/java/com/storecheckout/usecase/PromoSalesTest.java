@@ -31,8 +31,8 @@ public class PromoSalesTest {
 
     @Test
     public void promoSalesBuyXGetXTest_1() {
-        _LOG.info("-- Promo Sales BuyXGetX Test Scenario --");
-        _LOG.info("-- Creating a new transaction for customer --");
+        System.out.println();
+        System.out.println("************************** Promo Sales Buy 1 Safeguard Get1 free Safeguard Test Scenario **************************");
 
         Transaction transaction = storeCheckoutService.initializeTransaction();
         assertNotNull(transaction);
@@ -55,8 +55,8 @@ public class PromoSalesTest {
 
     @Test
     public void promoSalesBuyXGetXTest_2() {
-        _LOG.info("-- Promo Sales BuyXGetX Test Scenario --");
-        _LOG.info("-- Creating a new transaction for customer --");
+        System.out.println();
+        System.out.println("************************** Promo Sales Buy 1 Notebook Get 2 free Notebook Test Scenario **************************");
 
         Transaction transaction = storeCheckoutService.initializeTransaction();
         assertNotNull(transaction);
@@ -70,16 +70,16 @@ public class PromoSalesTest {
         transaction = storeCheckoutService.scanItem(transaction, products.get("8"), new BigDecimal("3"), null);
         transaction = storeCheckoutService.scanItem(transaction, products.get("13"), new BigDecimal("1"), null);
         transaction = storeCheckoutService.scanItem(transaction, products.get("9"), new BigDecimal("1"), null);
-        transaction = storeCheckoutService.scanItem(transaction, products.get("3"), new BigDecimal("1"), null);
         transaction = storeCheckoutService.scanItem(transaction, products.get("13"), new BigDecimal("2"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("3"), new BigDecimal("1"), null);
 
         receiptService.printReceipt(transaction);
     }
 
     @Test
     public void promoSalesBuyXGetXTest_3() {
-        _LOG.info("-- Promo Sales BuyXGetX Test Scenario --");
-        _LOG.info("-- Creating a new transaction for customer --");
+        System.out.println();
+        System.out.println("************************** Promo Sales Buy 2 Magazine Get 1 free Magazine Test Scenario **************************");
 
         Transaction transaction = storeCheckoutService.initializeTransaction();
         assertNotNull(transaction);
@@ -99,8 +99,8 @@ public class PromoSalesTest {
 
     @Test
     public void promoSalesBuyXGetYTest() {
-        _LOG.info("-- Promo Sales BuyXGetX Test Scenario --");
-        _LOG.info("-- Creating a new transaction for customer --");
+        System.out.println();
+        System.out.println("************************** Promo Sales Buy 1 Chocalate Get 2 free Pasta Test Scenario **************************");
 
         Transaction transaction = storeCheckoutService.initializeTransaction();
         assertNotNull(transaction);

@@ -28,8 +28,8 @@ public class BulkItemTest {
 
     @Test
     public void bulkItemTest() {
-        _LOG.info("-- Bulk/Weighted Item Test --");
-        _LOG.info("-- Creating a new transaction for customer --");
+        System.out.println();
+        System.out.println("************************** Bulk/Weighted Item Test **************************");
 
         Transaction transaction = storeCheckoutService.initializeTransaction();
         assertNotNull(transaction);

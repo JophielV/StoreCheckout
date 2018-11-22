@@ -26,8 +26,8 @@ public class SoldByPieceTest {
 
     @Test
     public void firstScenario() {
-        _LOG.info("-- Sold By Piece Test Scenario 1 --");
-        _LOG.info("-- Creating a new transaction for customer --");
+        System.out.println();
+        System.out.println("************************** Sold by Piece Test Scenario **************************");
 
         Transaction transaction = storeCheckoutService.initializeTransaction();
         assertNotNull(transaction);
