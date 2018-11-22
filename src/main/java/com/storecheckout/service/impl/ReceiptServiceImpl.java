@@ -10,8 +10,6 @@ import java.util.List;
 
 public class ReceiptServiceImpl implements ReceiptService {
 
-
-
     public void printReceipt(Transaction transaction) {
         System.out.println("************************ PRINTING RECEIPT ***********************");
         System.out.println(String.format("%-20s%s", "", "Grocery Store Checkout"));

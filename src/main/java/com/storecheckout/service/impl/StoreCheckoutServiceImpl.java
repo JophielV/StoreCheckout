@@ -12,7 +12,6 @@ import com.storecheckout.utils.IdGenerator;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class StoreCheckoutServiceImpl implements StoreCheckoutService {
 
