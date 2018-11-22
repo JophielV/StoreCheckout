@@ -35,35 +35,15 @@ public class StoreCheckoutServiceImpl implements StoreCheckoutService {
 
 
         if (promotions.size() > 0) {
-            System.out.println("--- FOR PROMOTION");
             orderItem.setPromoCheckingDone(false);
             orderItem.setActionProduct(true);
             tx = promotionService.processPromotions(tx, orderItem, promotions);
-            //orderItem = promotionService.processPromotions(tx, orderItem, promotions);
         } else {
-            System.out.println("--- NOT FOR PROMOTION");
             tx.getOrderItems().add(orderItem);
         }
-        //tx.getOrderItems().add(orderItem);
 
-        //tx.getOrderItems().add(orderItem);
-        // PromotionService.checkForPromotions
         Transaction transaction = transactionService.processTransaction(tx, orderItem);
-
-
-        System.out.println("--- ProductID: " + product.getProductId());
-        for (OrderItem orderItem1 : tx.getOrderItems()) {
-            System.out.println("-- orderItemId: " + orderItem1.getOrderItemId() +
-                    ", product: " + orderItem1.getProductName()
-                    + ", promoCheckingDone: " + orderItem1.getPromoCheckingDone()
-                    + ", remainingQty: " + orderItem1.getRemainingQty());
-        }
-        System.out.println("------------------------------------------");
         return transaction;
-    }
-
-    @Override
-    public void printReceipt(Transaction transaction) {
     }
 
 

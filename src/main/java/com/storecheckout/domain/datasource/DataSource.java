@@ -63,7 +63,7 @@ public class DataSource {
         buy1_get2_notebook.setActionQuantity(2);  // you take 2 free notebook
         buy1_get2_notebook.setDiscountType(DiscountType.PERCENT.name());
         buy1_get2_notebook.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
-        buy1_get2_notebook.setProductCondition(products.get("13")); // product safeguard has buy 1 take 1 promo
+        buy1_get2_notebook.setProductCondition(products.get("13")); // product safeguard has buy 1 take 2 promo
         buy1_get2_notebook.setProductAction(products.get("13"));
         promotions.add(buy1_get2_notebook);
 
@@ -74,7 +74,7 @@ public class DataSource {
         buy2_get1_magazine.setActionQuantity(1);  // you take 1 free magazine
         buy2_get1_magazine.setDiscountType(DiscountType.PERCENT.name());
         buy2_get1_magazine.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
-        buy2_get1_magazine.setProductCondition(products.get("14")); // product safeguard has buy 1 take 1 promo
+        buy2_get1_magazine.setProductCondition(products.get("14")); // product magazine has buy 2 take 1 promo
         buy2_get1_magazine.setProductAction(products.get("14"));
         promotions.add(buy2_get1_magazine);
 
@@ -85,8 +85,8 @@ public class DataSource {
         buy1_chocolate_get2_pasta.setActionQuantity(2);  // you take 2 free pasta
         buy1_chocolate_get2_pasta.setDiscountType(DiscountType.PERCENT.name());
         buy1_chocolate_get2_pasta.setDiscountValue(new BigDecimal("100")); // set discount to 100% since the other is free
-        buy1_chocolate_get2_pasta.setProductCondition(products.get("12")); // product safeguard has buy 1 take 1 promo
-        buy1_chocolate_get2_pasta.setProductAction(products.get("11"));
+        buy1_chocolate_get2_pasta.setProductCondition(products.get("12")); // product chocolate is the condition item
+        buy1_chocolate_get2_pasta.setProductAction(products.get("11")); // product pasta is the action item (the one taking the 100% discount)
         promotions.add(buy1_chocolate_get2_pasta);
 
     }

@@ -11,6 +11,4 @@ public interface StoreCheckoutService {
 
     Transaction scanItem(Transaction transaction, Product product,
                          BigDecimal quantity, BigDecimal weight);
-
-    void printReceipt(Transaction transaction);
 }

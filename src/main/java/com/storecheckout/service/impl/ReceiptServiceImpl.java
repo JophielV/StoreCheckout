@@ -5,6 +5,7 @@ import com.storecheckout.domain.model.transaction.OrderItem;
 import com.storecheckout.domain.model.transaction.Transaction;
 import com.storecheckout.service.api.ReceiptService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ReceiptServiceImpl implements ReceiptService {
@@ -42,7 +43,9 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         System.out.println();
         System.out.println(String.format("%-35s %s",  "Subtotal: ", transaction.getSubTotal()));
-        System.out.println(String.format("%-35s %s",  "Total Discounts: ", transaction.getTotalItemDiscounts()));
+        System.out.println(transaction.getTotalItemDiscounts().compareTo(BigDecimal.ZERO) == 0 ?
+                String.format("%-35s %s",  "Total Discounts: ", BigDecimal.ZERO):
+                String.format("%-34s %s",  "Total Discounts: ", transaction.getTotalItemDiscounts().negate()));
 
         System.out.println(String.format("%-35s %s",  "Total: ", transaction.getTotalAmountTender()));
         System.out.println("************************ END RECEIPT ***********************");

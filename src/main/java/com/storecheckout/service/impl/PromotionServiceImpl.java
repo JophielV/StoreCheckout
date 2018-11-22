@@ -2,7 +2,6 @@ package com.storecheckout.service.impl;
 
 import com.storecheckout.domain.datasource.DataSource;
 import com.storecheckout.domain.enums.DiscountType;
-import com.storecheckout.domain.enums.PromoType;
 import com.storecheckout.domain.model.product.Product;
 import com.storecheckout.domain.model.product.Promotion;
 import com.storecheckout.domain.model.transaction.ItemDiscount;
@@ -24,7 +23,6 @@ public class PromotionServiceImpl implements PromotionService {
     public List<Promotion> getProductPromotions(Product product) {
         List<Promotion> productPromotions = new ArrayList<>();
 
-
         List<Promotion> byProductAction = promotions.stream().
                 filter(p -> p.getProductAction() != null &&
                         p.getProductAction().getProductId().equals(product.getProductId()))
@@ -42,21 +40,16 @@ public class PromotionServiceImpl implements PromotionService {
         for (Promotion promotion : promotions) {
             Integer conditionQuantity = promotion.getConditionQuantity();
 
-            List<OrderItem> orderItemsForChecking = new ArrayList<>();
-
-            orderItemsForChecking = transaction.getOrderItems().stream()
+            List<OrderItem> orderItemsForChecking = transaction.getOrderItems().stream()
                     .filter(oI -> oI.getProductId().equals(promotion.getProductCondition().getProductId())
                             && oI.getRemainingQty() > 0)
                     .collect(Collectors.toList());
 
 
             if (orderItemsForChecking.size() > 0) {
-                System.out.println("orderItemsForChecking Size: " + orderItemsForChecking.size());
-
                 Integer quantityAccum = 0;
                 Integer quantityToReach = promotion.getConditionQuantity();
 
-                BigDecimal quantityToMultiply = orderItem.getQuantity().intValue() != promotion.getActionQuantity() ? new BigDecimal(promotion.getActionQuantity()) : orderItem.getQuantity();
                 boolean promoCountReached = false;
                 for (OrderItem orderItemForChecking : orderItemsForChecking) {
                     quantityAccum += orderItemForChecking.getRemainingQty();
