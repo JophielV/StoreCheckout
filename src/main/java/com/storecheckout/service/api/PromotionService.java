@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PromotionService {
 
-    List<Promotion> getProductPromotions(Product product);
+    Promotion getProductMostRecentPromotion(Product product);
 
-    Transaction processPromotions(Transaction transaction, OrderItem orderItem, List<Promotion> promotions);
+    Transaction processPromotionForItem(Transaction transaction, OrderItem orderItem, Promotion promotion);
 }

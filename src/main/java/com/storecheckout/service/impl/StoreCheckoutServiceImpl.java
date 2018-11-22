@@ -30,14 +30,11 @@ public class StoreCheckoutServiceImpl implements StoreCheckoutService {
 
     @Override
     public Transaction scanItem(Transaction tx, Product product, BigDecimal quantity, BigDecimal weight) {
-        List<Promotion> promotions = promotionService.getProductPromotions(product);
+        Promotion promotion = promotionService.getProductMostRecentPromotion(product);
         OrderItem orderItem = orderItemService.processNewOrderItem(tx, product, quantity, weight);
 
-
-        if (promotions.size() > 0) {
-            orderItem.setPromoCheckingDone(false);
-            orderItem.setActionProduct(true);
-            tx = promotionService.processPromotions(tx, orderItem, promotions);
+        if (promotion != null) {
+            tx = promotionService.processPromotionForItem(tx, orderItem, promotion);
         } else {
             tx.getOrderItems().add(orderItem);
         }

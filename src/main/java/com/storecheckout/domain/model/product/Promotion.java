@@ -18,8 +18,6 @@ public class Promotion {
     private Product productCondition;
     private Product productAction;
 
-    // this field is for SALE promo condition;
-    private List<Product> saleProducts;
 
     public String getPromoId() {
         return promoId;
@@ -83,13 +81,5 @@ public class Promotion {
 
     public void setProductAction(Product productAction) {
         this.productAction = productAction;
-    }
-
-    public List<Product> getSaleProducts() {
-        return saleProducts;
-    }
-
-    public void setSaleProducts(List<Product> saleProducts) {
-        this.saleProducts = saleProducts;
     }
 }

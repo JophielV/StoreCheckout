@@ -17,8 +17,6 @@ public class OrderItem {
 
     // Fields for checking promo
     private Integer remainingQty; // initially this is always equals to quantity
-    private Boolean isActionProduct = false;
-    private Boolean isPromoCheckingDone;
 
     // Fields related to weight
     private String weightedDescription;
@@ -103,28 +101,7 @@ public class OrderItem {
         this.remainingQty = remainingQty;
     }
 
-    public Boolean getActionProduct() {
-        return isActionProduct;
-    }
-
-    public void setActionProduct(Boolean actionProduct) {
-        isActionProduct = actionProduct;
-    }
-
-    public Boolean getPromoCheckingDone() {
-        return isPromoCheckingDone;
-    }
-
-    public void setPromoCheckingDone(Boolean promoCheckingDone) {
-        isPromoCheckingDone = promoCheckingDone;
-    }
-
-    public void deductRemainingQty(Integer qtyToSubtract) {
-        this.remainingQty -= qtyToSubtract;
-    }
-
-    public void setPromoFieldsToCheck(Boolean isPromoCheckingDone, Integer qtyToSubtract) {
-        this.isPromoCheckingDone = isPromoCheckingDone;
+    public void deductRemainingQtyToCheck(Integer qtyToSubtract) {
         this.remainingQty -= qtyToSubtract;
     }
 

@@ -19,7 +19,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         orderItem.setProductName(product.getProductName());
         orderItem.setPrice(product.getPrice());
         orderItem.setQuantity(quantity);
-        orderItem.setRemainingQty(quantity.intValue());
+        orderItem.setRemainingQty(quantity.intValue()); // quantity = remainingQty initially, used to check if orderItem has satisfied the conditionQuantity of Promotion
 
         BigDecimal subTotal;
         if (product.getWeighted()) {
@@ -32,7 +32,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
         orderItem.setPriceSubtotal(subTotal);
 
-        // if there are discounts
+        // set initial discount values
         BigDecimal itemDiscountTotal = BigDecimal.ZERO;
         orderItem.setOverallDiscount(itemDiscountTotal);
         orderItem.setNetTotal(subTotal.subtract(itemDiscountTotal));
