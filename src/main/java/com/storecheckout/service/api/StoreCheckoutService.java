@@ -9,7 +9,8 @@ public interface StoreCheckoutService {
 
     Transaction initializeTransaction();
 
-    Transaction scanItem(Transaction transaction, Product product, BigDecimal quantity);
+    Transaction scanItem(Transaction transaction, Product product,
+                         BigDecimal quantity, BigDecimal weight);
 
     void printReceipt(Transaction transaction);
 }

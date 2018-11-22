@@ -10,7 +10,6 @@ import com.storecheckout.service.api.PromotionService;
 import com.storecheckout.utils.IdGenerator;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderItemServiceImpl implements OrderItemService {
@@ -20,7 +19,8 @@ public class OrderItemServiceImpl implements OrderItemService {
     private PromotionService promotionService = new PromotionServiceImpl();
 
     @Override
-    public OrderItem processNewOrderItem(Transaction transaction, Product product, BigDecimal quantity) {
+    public OrderItem processNewOrderItem(Transaction transaction, Product product,
+                                         BigDecimal quantity, BigDecimal weight) {
         OrderItem orderItem = new OrderItem();
         orderItem.setOrderItemId(String.valueOf(IdGenerator.generateIntId()));
         orderItem.setProductId(product.getProductId());
@@ -29,11 +29,18 @@ public class OrderItemServiceImpl implements OrderItemService {
         orderItem.setQuantity(quantity);
         orderItem.setRemainingQty(quantity.intValue());
 
-        BigDecimal subTotal = computePriceSubtotal(product.getPrice(), quantity);
+        BigDecimal subTotal;
+        if (product.getWeighted()) {
+            orderItem.setWeightedDescription(product.getPrice() + " per "
+                    + product.getUnitOfMeasurement().toString() + " - weight: " + weight + " " + product.getUnitOfMeasurement().toString());
+            subTotal = computePriceSubtotal(product.getPrice(), quantity, weight);
+        } else {
+            subTotal = computePriceSubtotal(product.getPrice(), quantity);
+        }
+
         orderItem.setPriceSubtotal(subTotal);
 
         // if there are discounts
-
         BigDecimal itemDiscountTotal = BigDecimal.ZERO;
         orderItem.setOverallDiscount(itemDiscountTotal);
         orderItem.setNetTotal(subTotal.subtract(itemDiscountTotal));
@@ -44,5 +51,9 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     private BigDecimal computePriceSubtotal(BigDecimal price, BigDecimal quantity) {
         return price.multiply(quantity);
+    }
+
+    private BigDecimal computePriceSubtotal(BigDecimal price, BigDecimal quantity, BigDecimal weight) {
+        return price.multiply(quantity).multiply(weight);
     }
 }

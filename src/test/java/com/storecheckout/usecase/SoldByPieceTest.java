@@ -35,9 +35,9 @@ public class SoldByPieceTest {
 
         // assuming that we retrieved products from db with their barcodes(in this case we are considering hashmap)
         assertNotNull(products);
-        transaction = storeCheckoutService.scanItem(transaction, products.get("10"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("2"), new BigDecimal("3"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("11"), new BigDecimal("5"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("10"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("2"), new BigDecimal("3"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("11"), new BigDecimal("5"), null);
 
         receiptService.printReceipt(transaction);
     }

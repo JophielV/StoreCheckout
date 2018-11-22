@@ -29,9 +29,9 @@ public class StoreCheckoutServiceImpl implements StoreCheckoutService {
     }
 
     @Override
-    public Transaction scanItem(Transaction tx, Product product, BigDecimal quantity) {
+    public Transaction scanItem(Transaction tx, Product product, BigDecimal quantity, BigDecimal weight) {
         List<Promotion> promotions = promotionService.getProductPromotions(product);
-        OrderItem orderItem = orderItemService.processNewOrderItem(tx, product, quantity);
+        OrderItem orderItem = orderItemService.processNewOrderItem(tx, product, quantity, weight);
 
 
         if (promotions.size() > 0) {

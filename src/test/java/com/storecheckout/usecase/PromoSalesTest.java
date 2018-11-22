@@ -43,12 +43,12 @@ public class PromoSalesTest {
         assertNotNull(products);
         assertNotNull(promotions);
 
-        transaction = storeCheckoutService.scanItem(transaction, products.get("2"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("11"), new BigDecimal("2"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("2"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("2"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("11"), new BigDecimal("2"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("2"), null);
 
         receiptService.printReceipt(transaction);
     }
@@ -67,11 +67,11 @@ public class PromoSalesTest {
         assertNotNull(products);
         assertNotNull(promotions);
 
-        transaction = storeCheckoutService.scanItem(transaction, products.get("8"), new BigDecimal("3"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("13"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("9"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("3"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("13"), new BigDecimal("2"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("8"), new BigDecimal("3"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("13"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("9"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("3"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("13"), new BigDecimal("2"), null);
 
         receiptService.printReceipt(transaction);
     }
@@ -90,9 +90,9 @@ public class PromoSalesTest {
         assertNotNull(products);
         assertNotNull(promotions);
 
-        transaction = storeCheckoutService.scanItem(transaction, products.get("14"), new BigDecimal("2"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("14"), new BigDecimal("1"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("14"), new BigDecimal("2"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("1"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("14"), new BigDecimal("1"), null);
 
         receiptService.printReceipt(transaction);
     }
@@ -111,10 +111,10 @@ public class PromoSalesTest {
         assertNotNull(products);
         assertNotNull(promotions);
 
-        transaction = storeCheckoutService.scanItem(transaction, products.get("2"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("12"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("8"), new BigDecimal("1"));
-        transaction = storeCheckoutService.scanItem(transaction, products.get("11"), new BigDecimal("2"));
+        transaction = storeCheckoutService.scanItem(transaction, products.get("2"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("12"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("8"), new BigDecimal("1"), null);
+        transaction = storeCheckoutService.scanItem(transaction, products.get("11"), new BigDecimal("2"), null);
 
         receiptService.printReceipt(transaction);
     }

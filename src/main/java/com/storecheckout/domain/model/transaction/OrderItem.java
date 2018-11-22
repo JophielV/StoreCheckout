@@ -20,6 +20,9 @@ public class OrderItem {
     private Boolean isActionProduct = false;
     private Boolean isPromoCheckingDone;
 
+    // Fields related to weight
+    private String weightedDescription;
+
     public String getOrderItemId() {
         return orderItemId;
     }
@@ -123,5 +126,13 @@ public class OrderItem {
     public void setPromoFieldsToCheck(Boolean isPromoCheckingDone, Integer qtyToSubtract) {
         this.isPromoCheckingDone = isPromoCheckingDone;
         this.remainingQty -= qtyToSubtract;
+    }
+
+    public String getWeightedDescription() {
+        return weightedDescription;
+    }
+
+    public void setWeightedDescription(String weightedDescription) {
+        this.weightedDescription = weightedDescription;
     }
 }

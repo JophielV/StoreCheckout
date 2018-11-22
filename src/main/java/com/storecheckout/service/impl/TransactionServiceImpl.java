@@ -23,8 +23,8 @@ public class TransactionServiceImpl implements TransactionService {
 
         for (OrderItem item: transaction.getOrderItems()) {
             subTotal = subTotal.add(item.getPriceSubtotal());
-            totalItemDiscounts = totalItemDiscounts.add(item.getOverallDiscount());
-            totalAmountTender = totalAmountTender.add(item.getNetTotal());
+            totalItemDiscounts = totalItemDiscounts.add(item.getOverallDiscount() != null ? item.getOverallDiscount() : BigDecimal.ZERO);
+            totalAmountTender = totalAmountTender.add(item.getNetTotal() != null ? item.getNetTotal() :  BigDecimal.ZERO);
         }
 
         transaction.setSubTotal(subTotal);

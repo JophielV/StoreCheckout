@@ -25,7 +25,7 @@ public class DataSource {
         products.put("4", new Product("4", "Pencil",
                 new BigDecimal("11.25"), false, UnitOfMeasurement.EACH.name()));
         products.put("5", new Product("5", "Rice",
-                new BigDecimal("45"), true, UnitOfMeasurement.EACH.name()));
+                new BigDecimal("45"), true, UnitOfMeasurement.KG.name()));
         products.put("6", new Product("6", "Paper",
                 new BigDecimal("25.50"), false, UnitOfMeasurement.EACH.name()));
         products.put("7", new Product("7", "Eraser",

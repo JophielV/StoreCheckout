@@ -29,6 +29,9 @@ public class ReceiptServiceImpl implements ReceiptService {
             System.out.println(String.format("%s",  o.getProductName()));
             System.out.println(String.format("%-35s %s",  o.getPrice() + " * " + o.getQuantity(), o.getPriceSubtotal()));
 
+            if (o.getWeightedDescription() != null) {
+                System.out.println(String.format("%s",  o.getWeightedDescription()));
+            }
             if (o.getItemDiscounts() != null) {
                 o.getItemDiscounts().forEach(itemDisc -> {
                     System.out.println(String.format("%-34s %s",  itemDisc.getLabel(), itemDisc.getAmount().negate()));

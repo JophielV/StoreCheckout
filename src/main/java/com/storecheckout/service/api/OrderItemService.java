@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface OrderItemService {
 
-    OrderItem processNewOrderItem(Transaction transaction, Product product, BigDecimal quantity);
+    OrderItem processNewOrderItem(Transaction transaction, Product product,
+                                  BigDecimal quantity, BigDecimal weight);
 }
